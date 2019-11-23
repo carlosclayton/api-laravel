@@ -34,6 +34,12 @@ $api->version('v1', function ($api) {
         'namespace' => 'ApiVue\Http\Controllers\Auth',
         'as' => 'api'
     ], function ($api) {
+        $api->post('/password/forgot', [
+            'uses' =>'ForgotPasswordController@sendResetLinkEmail',
+            'middleware' =>['api.throttle'],
+            'limit' => 5,
+            'expires' => 1
+        ])->name('.password.forgot');
         $api->post('/register', [
             'uses' =>'RegisterController@store',
             'middleware' =>['api.throttle'],
