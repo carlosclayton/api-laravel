@@ -3,6 +3,7 @@
 namespace ApiVue\Http\Controllers\Auth;
 
 use ApiVue\Http\Controllers\Controller;
+use HttpException;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
@@ -46,7 +47,7 @@ class ForgotPasswordController extends Controller
                 $this->credentials($request)
             );
         }catch (\Exception $ex){
-            dd($ex);
+            throw new \Exception( $ex->getMessage(), $ex->getCode());
         }
 
 
@@ -56,9 +57,7 @@ class ForgotPasswordController extends Controller
                 'message' => 'Email sended with successfully'
             ]);
         }else{
-            return response()->json([
-                'error' => 'Failure to send email,please try again...'
-            ]);
+            throw new \Exception( 'Error to send email', 500);
         }
 
     }
