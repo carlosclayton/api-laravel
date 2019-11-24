@@ -83,6 +83,7 @@ $api->version('v1', function ($api) {
         $api->put('/{user}', 'UsersController@update')->name('.update');
         $api->delete('/{user}', 'UsersController@destroy')->name('.destroy');
         $api->put('/restore/{user}', 'UsersController@restore')->name('.restore');
+        $api->post('/password/{user}', 'UsersController@password')->name('.password');
 
     });
 

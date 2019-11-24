@@ -3,10 +3,7 @@
 namespace ApiVue\Http\Controllers;
 
 use ApiVue\Criteria\OnlyTrashedCriteria;
-use Illuminate\Http\Request;
-
-use ApiVue\Http\Requests;
-use Prettus\Validator\Contracts\ValidatorInterface;
+use ApiVue\Http\Requests\PasswordUpdateRequest;
 use Prettus\Validator\Exceptions\ValidatorException;
 use ApiVue\Http\Requests\UserCreateRequest;
 use ApiVue\Http\Requests\UserUpdateRequest;
@@ -184,6 +181,23 @@ class UsersController extends Controller
             $this->repository->restore($id);
             return response()->json([
                 'data' => 'User restored.'
+            ]);
+        } catch (ValidatorException $e) {
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessageBag()
+            ]);
+
+        }
+    }
+
+    public function password(PasswordUpdateRequest $request)
+    {
+        $data['password'] = bcrypt($request->get('password'));
+        try {
+            $this->repository->update($data,$request->user('api')->id);
+            return response()->json([
+                'data' => 'Password updated.'
             ]);
         } catch (ValidatorException $e) {
             return response()->json([
