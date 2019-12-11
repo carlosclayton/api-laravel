@@ -20,6 +20,7 @@ class Kernel extends HttpKernel
         \ApiVue\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \Barryvdh\Cors\HandleCors::class,
+//        \ApiVue\Http\Middleware\ConfigurePagination::class
     ];
 
     /**

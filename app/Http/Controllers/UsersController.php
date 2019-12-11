@@ -4,6 +4,7 @@ namespace ApiVue\Http\Controllers;
 
 use ApiVue\Criteria\OnlyTrashedCriteria;
 use ApiVue\Http\Requests\PasswordUpdateRequest;
+use Illuminate\Http\Request;
 use Prettus\Validator\Exceptions\ValidatorException;
 use ApiVue\Http\Requests\UserCreateRequest;
 use ApiVue\Http\Requests\UserUpdateRequest;
@@ -44,10 +45,10 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $users = $this->repository->paginate(10);
+        $users = $this->repository->paginate($request->get('limit', 10), $request->get('page', 10));
 
         return response()->json([
             'data' => $users,
