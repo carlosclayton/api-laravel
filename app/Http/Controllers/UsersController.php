@@ -48,13 +48,12 @@ class UsersController extends Controller
     public function index(Request $request)
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $users = $this->repository->paginate($request->get('limit', 10), $request->get('page', 10));
+        $users = $this->repository->paginate($request->get('limit', 10), $request->get('page', 1));
 
         return response()->json([
             'data' => $users,
         ]);
     }
-
 
     /**
      * Store a newly created resource in storage.

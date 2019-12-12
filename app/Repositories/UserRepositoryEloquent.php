@@ -23,10 +23,8 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         'role' => '='
     ];
 
-
     public function paginate($limit = null, $page = null, $columns = ['*'], $method = "paginate")
     {
-
         $this->applyCriteria();
         $this->applyScope();
         $limit = is_null($limit) ? config('repository.pagination.limit', 15) : $limit;
