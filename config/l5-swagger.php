@@ -8,7 +8,7 @@ return [
         |--------------------------------------------------------------------------
         */
 
-        'title' => 'L5 Swagger UI',
+        'title' => 'API RESTFUL documentation of Laravel 5.8',
     ],
 
     'routes' => [

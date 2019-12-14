@@ -15,7 +15,7 @@ use Str;
  * @OA\Info(
  *      version="1.0.0",
  *      title="API RESTFUL Laravel 5.8",
- *      description="L5 Swagger OpenApi description",
+ *      description="API documentation project",
  *      @OA\Contact(
  *          email="carlos.clayton@gmail.com"
  *      ),
