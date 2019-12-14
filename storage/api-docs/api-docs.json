@@ -15,6 +15,9 @@
     "paths": {
         "/api/access_token": {
             "post": {
+                "tags": [
+                    "Autentication"
+                ],
                 "summary": "Get token",
                 "description": "Return token",
                 "operationId": "ApiVue\\Http\\Controllers\\Auth\\LoginController::accessToken",
@@ -48,6 +51,9 @@
         },
         "/api/categories": {
             "get": {
+                "tags": [
+                    "Categories"
+                ],
                 "summary": "List of categories",
                 "description": "Return a list of categories",
                 "operationId": "ApiVue\\Http\\Controllers\\CategoriesController::index",
@@ -63,6 +69,9 @@
                 ]
             },
             "post": {
+                "tags": [
+                    "Categories"
+                ],
                 "summary": "Store a category",
                 "description": "Return message",
                 "operationId": "ApiVue\\Http\\Controllers\\CategoriesController::store",
@@ -100,6 +109,9 @@
         },
         "/api/categories/{id}": {
             "get": {
+                "tags": [
+                    "Categories"
+                ],
                 "summary": "Show a category",
                 "description": "Return a category",
                 "operationId": "getCategoryById",
@@ -126,6 +138,9 @@
                 ]
             },
             "put": {
+                "tags": [
+                    "Categories"
+                ],
                 "summary": "Update a category",
                 "description": "Update a category",
                 "operationId": "getCategoryById",
@@ -170,6 +185,9 @@
                 ]
             },
             "delete": {
+                "tags": [
+                    "Categories"
+                ],
                 "summary": "Delete a category",
                 "description": "Delete a category",
                 "operationId": "getCategoryById",

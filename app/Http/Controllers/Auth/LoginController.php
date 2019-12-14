@@ -80,6 +80,7 @@ class LoginController extends Controller
 
     /**
      * @OA\Post(
+     *      tags={"Autentication"},
      *      path="/api/access_token",
      *      summary="Get token",
      *      description="Return token",

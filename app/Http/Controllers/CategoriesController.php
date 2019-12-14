@@ -46,6 +46,7 @@ class CategoriesController extends Controller
 
     /**
      * @OA\Get(
+     *     tags={"Categories"},
      *     path="/api/categories",
      *     summary="List of categories",
      *     description="Return a list of categories",
@@ -68,6 +69,7 @@ class CategoriesController extends Controller
 
     /**
      * @OA\Post(
+     *      tags={"Categories"},
      *      path="/api/categories",
      *      summary="Store a category",
      *      description="Return message",
@@ -113,6 +115,7 @@ class CategoriesController extends Controller
 
     /**
      * @OA\Get(
+     *     tags={"Categories"},
      *     path="/api/categories/{id}",
      *     operationId="getCategoryById",
      *     @OA\Parameter(
@@ -152,6 +155,7 @@ class CategoriesController extends Controller
 
     /**
      * @OA\Put(
+     *      tags={"Categories"},
      *      path="/api/categories/{id}",
      *      summary="Update a category",
      *      description="Update a category",
@@ -210,6 +214,7 @@ class CategoriesController extends Controller
 
     /**
      * @OA\Delete(
+     *     tags={"Categories"},
      *     path="/api/categories/{id}",
      *     operationId="getCategoryById",
      *     @OA\Parameter(
