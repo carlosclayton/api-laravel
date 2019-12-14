@@ -1,0 +1,10 @@
+openapi: 3.0.0
+info:
+  title: 'Category API'
+  version: '0.1'
+paths:
+  /api/categories.json:
+    get:
+      responses:
+        '200':
+          description: 'An example resource'

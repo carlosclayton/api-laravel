@@ -14,6 +14,7 @@ use ApiVue\Http\Requests\CategoryUpdateRequest;
 use ApiVue\Repositories\CategoryRepository;
 use ApiVue\Validators\CategoryValidator;
 
+
 /**
  * Class CategoriesController.
  *
@@ -44,9 +45,15 @@ class CategoriesController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *     path="/api/categories",
+     *     summary="List of categories",
+     *     description="Return a list of categories",
+     *     @OA\Response(response="200", description="An json"),
+     *      security={
+     *           {"apiKey": {}}
+     *       }
+     * )
      */
     public function index()
     {
@@ -58,14 +65,35 @@ class CategoriesController extends Controller
 
     }
 
+
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  CategoryCreateRequest $request
-     *
-     * @return \Illuminate\Http\Response
-     *
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     * @OA\Post(
+     *      path="/api/categories",
+     *      summary="Store a category",
+     *      description="Return message",
+     *      @OA\Parameter(
+     *          name="name",
+     *          description="Name field",
+     *          required=true,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="description",
+     *          description="Description",
+     *          required=true,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *     @OA\Response(response="200", description="Store categories"),
+     *      security={
+     *           {"apiKey": {}}
+     *      }
+     * )
      */
     public function store(CategoryCreateRequest $request)
     {
@@ -84,11 +112,25 @@ class CategoriesController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *     path="/api/categories/{id}",
+     *     operationId="getCategoryById",
+     *     @OA\Parameter(
+     *          name ="id",
+     *          in = "path",
+     *          description = "ID of category to return",
+     *          required = true,
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *     ),
+     *     summary="Show a category",
+     *     description="Return a category",
+     *     @OA\Response(response="200", description="An json"),
+     *     security={
+     *           {"apiKey": {}}
+     *     }
+     * )
      */
     public function show($id)
     {
@@ -100,13 +142,7 @@ class CategoriesController extends Controller
 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         $category = $this->repository->find($id);
@@ -115,14 +151,43 @@ class CategoriesController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  CategoryUpdateRequest $request
-     * @param  string $id
-     *
-     * @return Response
-     *
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     * @OA\Put(
+     *      path="/api/categories/{id}",
+     *      summary="Update a category",
+     *      description="Update a category",
+     *      operationId="getCategoryById",
+     *      @OA\Parameter(
+     *          name ="id",
+     *          in = "path",
+     *          description = "ID of category to return",
+     *          required = true,
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="name",
+     *          description="Name field",
+     *          required=true,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="description",
+     *          description="Description",
+     *          required=true,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *     @OA\Response(response="200", description="Store categories"),
+     *      security={
+     *           {"apiKey": {}}
+     *      }
+     * )
      */
     public function update(CategoryUpdateRequest $request, $id)
     {
@@ -144,11 +209,25 @@ class CategoriesController extends Controller
 
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
+     * @OA\Delete(
+     *     path="/api/categories/{id}",
+     *     operationId="getCategoryById",
+     *     @OA\Parameter(
+     *          name ="id",
+     *          in = "path",
+     *          description = "ID of category to return",
+     *          required = true,
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *     ),
+     *     summary="Delete a category",
+     *     description="Delete a category",
+     *     @OA\Response(response="200", description="An json"),
+     *     security={
+     *           {"apiKey": {}}
+     *     }
+     * )
      */
     public function destroy($id)
     {
