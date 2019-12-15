@@ -44,9 +44,16 @@ class ClientsController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *     tags={"Clients"},
+     *     path="/api/clients",
+     *     summary="List of clients",
+     *     description="Return a list of clients",
+     *     @OA\Response(response="200", description="An json"),
+     *      security={
+     *           {"apiKey": {}}
+     *       }
+     * )
      */
     public function index()
     {

@@ -41,9 +41,16 @@ class UsersController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *     tags={"Users"},
+     *     path="/api/users",
+     *     summary="List of users",
+     *     description="Return a list of users",
+     *     @OA\Response(response="200", description="An json"),
+     *      security={
+     *           {"apiKey": {}}
+     *       }
+     * )
      */
     public function index(Request $request)
     {
@@ -56,13 +63,53 @@ class UsersController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  UserCreateRequest $request
-     *
-     * @return \Illuminate\Http\Response
-     *
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     * @OA\Post(
+     *      tags={"Users"},
+     *      path="/api/users",
+     *      summary="Store a user",
+     *      description="Return message",
+     *      @OA\Parameter(
+     *          name="name",
+     *          description="Name field",
+     *          required=true,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="email",
+     *          description="Email",
+     *          required=true,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="role",
+     *          description="Role",
+     *          required=true,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="password",
+     *          description="Password",
+     *          required=true,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string",
+     *              format="password"
+     *          )
+     *      ),
+     *     @OA\Response(response="200", description="Store categories"),
+     *      security={
+     *           {"apiKey": {}}
+     *      }
+     * )
      */
     public function store(UserCreateRequest $request)
     {
@@ -86,11 +133,26 @@ class UsersController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *     tags={"Users"},
+     *     path="/api/users/{id}",
+     *     operationId="getUserById",
+     *     @OA\Parameter(
+     *          name ="id",
+     *          in = "path",
+     *          description = "ID of category to return",
+     *          required = true,
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *     ),
+     *     summary="Show a user",
+     *     description="Return a user",
+     *     @OA\Response(response="200", description="An json"),
+     *     security={
+     *           {"apiKey": {}}
+     *     }
+     * )
      */
     public function show($id)
     {
@@ -116,14 +178,63 @@ class UsersController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  UserUpdateRequest $request
-     * @param  string $id
-     *
-     * @return Response
-     *
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     * @OA\Put(
+     *     tags={"Users"},
+     *     path="/api/users/{id}",
+     *     operationId="getUserById",
+     *     summary="Update a user",
+     *     description="Return message",
+     *     @OA\Parameter(
+     *          name ="id",
+     *          in = "path",
+     *          description = "ID of category to return",
+     *          required = true,
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="name",
+     *          description="Name field",
+     *          required=true,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="email",
+     *          description="Email",
+     *          required=true,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="role",
+     *          description="Role",
+     *          required=true,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="password",
+     *          description="Password",
+     *          required=true,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string",
+     *              format="password"
+     *          )
+     *      ),
+     *     @OA\Response(response="200", description="Update user"),
+     *      security={
+     *           {"apiKey": {}}
+     *      }
+     * )
      */
     public function update(UserUpdateRequest $request, $id)
     {
@@ -150,11 +261,26 @@ class UsersController extends Controller
 
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
+     * @OA\Delete(
+     *     tags={"Users"},
+     *     path="/api/users/{id}",
+     *     operationId="getUserById",
+     *     @OA\Parameter(
+     *          name ="id",
+     *          in = "path",
+     *          description = "ID of user",
+     *          required = true,
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *     ),
+     *     summary="Delete a user",
+     *     description="Delete a user",
+     *     @OA\Response(response="200", description="An json"),
+     *     security={
+     *           {"apiKey": {}}
+     *     }
+     * )
      */
     public function destroy($id)
     {
@@ -165,6 +291,18 @@ class UsersController extends Controller
         ]);
     }
 
+    /**
+     * @OA\Get(
+     *     tags={"Users"},
+     *     path="/api/users/trashed",
+     *     summary="List of trashed users",
+     *     description="Return a list of users",
+     *     @OA\Response(response="200", description="An json"),
+     *      security={
+     *           {"apiKey": {}}
+     *       }
+     * )
+     */
     public function trashed()
     {
         $this->repository->pushCriteria(new OnlyTrashedCriteria());
@@ -175,6 +313,19 @@ class UsersController extends Controller
         ]);
     }
 
+    /**
+     * @OA\Put(
+     *      tags={"Users"},
+     *      path="/api/users/restore/{id}",
+     *      summary="Restore a user",
+     *      description="Restore a user",
+     *      operationId="getCategoryById",
+     *     @OA\Response(response="200", description="Restore a user"),
+     *      security={
+     *           {"apiKey": {}}
+     *      }
+     * )
+     */
     public function restore($id)
     {
         try {

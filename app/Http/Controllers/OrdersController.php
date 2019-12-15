@@ -44,9 +44,16 @@ class OrdersController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *     tags={"Orders"},
+     *     path="/api/orders",
+     *     summary="List of orders",
+     *     description="Return a list of orders",
+     *     @OA\Response(response="200", description="An json"),
+     *      security={
+     *           {"apiKey": {}}
+     *       }
+     * )
      */
     public function index()
     {
@@ -58,7 +65,45 @@ class OrdersController extends Controller
         ]);
     }
 
-
+    /**
+     * @OA\Post(
+     *      tags={"Orders"},
+     *      path="/api/orders",
+     *      summary="Store a order",
+     *      description="Return message",
+     *      @OA\Parameter(
+     *          name="status",
+     *          description="Status field",
+     *          required=true,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="user_id",
+     *          description="User ID",
+     *          required=true,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="product_id",
+     *          description="Product ID",
+     *          required=true,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *     @OA\Response(response="200", description="Store a order"),
+     *      security={
+     *           {"apiKey": {}}
+     *      }
+     * )
+     */
     public function store(OrderCreateRequest $request)
     {
         try {
@@ -75,11 +120,26 @@ class OrdersController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *     tags={"Orders"},
+     *     path="/api/orders/{id}",
+     *     operationId="getOrderById",
+     *     @OA\Parameter(
+     *          name ="id",
+     *          in = "path",
+     *          description = "ID of order",
+     *          required = true,
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *     ),
+     *     summary="Show a order",
+     *     description="Return a order",
+     *     @OA\Response(response="200", description="An json"),
+     *     security={
+     *           {"apiKey": {}}
+     *     }
+     * )
      */
     public function show($id)
     {
@@ -89,13 +149,7 @@ class OrdersController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         $order = $this->repository->find($id);
@@ -103,14 +157,53 @@ class OrdersController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  OrderUpdateRequest $request
-     * @param  string $id
-     *
-     * @return Response
-     *
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     * @OA\Put(
+     *      tags={"Orders"},
+     *      path="/api/orders/{id}",
+     *      operationId="getOrderById",
+     *      summary="Update a order",
+     *      description="Return message",
+     *      @OA\Parameter(
+     *          name ="id",
+     *          in = "path",
+     *          description = "ID of order",
+     *          required = true,
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="status",
+     *          description="Status field",
+     *          required=true,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="user_id",
+     *          description="User ID",
+     *          required=true,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="product_id",
+     *          description="Product ID",
+     *          required=true,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *     @OA\Response(response="200", description="Store a order"),
+     *      security={
+     *           {"apiKey": {}}
+     *      }
+     * )
      */
     public function update(OrderUpdateRequest $request, $id)
     {
@@ -129,11 +222,26 @@ class OrdersController extends Controller
 
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
+     * @OA\Delete(
+     *     tags={"Orders"},
+     *     path="/api/orders/{id}",
+     *     operationId="getOrderById",
+     *     @OA\Parameter(
+     *          name ="id",
+     *          in = "path",
+     *          description = "ID of order",
+     *          required = true,
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *     ),
+     *     summary="Delete a order",
+     *     description="Delete a order",
+     *     @OA\Response(response="200", description="An json"),
+     *     security={
+     *           {"apiKey": {}}
+     *     }
+     * )
      */
     public function destroy($id)
     {
@@ -144,6 +252,20 @@ class OrdersController extends Controller
 
     }
 
+
+
+    /**
+     * @OA\Get(
+     *     tags={"Orders"},
+     *     path="/api/orders/trashed",
+     *     summary="List of trashed orders",
+     *     description="Return a list of trashed orders",
+     *     @OA\Response(response="200", description="An json"),
+     *      security={
+     *           {"apiKey": {}}
+     *       }
+     * )
+     */
     public function trashed()
     {
         $this->repository->pushCriteria(new OnlyTrashedCriteria());
@@ -154,6 +276,19 @@ class OrdersController extends Controller
         ]);
     }
 
+    /**
+     * @OA\Put(
+     *      tags={"Orders"},
+     *      path="/api/orders/restore/{id}",
+     *      summary="Restore a order",
+     *      description="Restore a order",
+     *      operationId="getOrderById",
+     *     @OA\Response(response="200", description="Store categories"),
+     *      security={
+     *           {"apiKey": {}}
+     *      }
+     * )
+     */
     public function restore($id)
     {
         try {
