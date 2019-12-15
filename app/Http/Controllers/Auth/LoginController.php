@@ -157,13 +157,36 @@ class LoginController extends Controller
         ], 403);
     }
 
+    /**
+     * @OA\Post(
+     *      tags={"Autentication"},
+     *      path="/api/logout",
+     *      summary="Logout ",
+     *      description="Logout",
+     *      @OA\Response(
+     *          response=200,
+     *          description="successful operation"
+     *       )
+     * )
+     */
     public function logout(Request $request)
     {
         \Auth::guard('api')->logout();
         return response()->json([
         ], 204);
     }
-
+    /**
+     * @OA\Post(
+     *      tags={"Autentication"},
+     *      path="/api/refresh_token",
+     *      summary="Refresh token",
+     *      description="Refresh token",
+     *      @OA\Response(
+     *          response=200,
+     *          description="successful operation"
+     *       )
+     * )
+     */
     public function refreshToken(Request $request){
         $token = \Auth::guard('api')->refresh();
         return $this->sendLoginResponse($request, $token);

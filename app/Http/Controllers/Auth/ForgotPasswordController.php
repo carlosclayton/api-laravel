@@ -33,6 +33,27 @@ class ForgotPasswordController extends Controller
         $this->middleware('guest');
     }
 
+    /**
+     * @OA\Post(
+     *      tags={"Autentication"},
+     *      path="/api/forgot",
+     *      summary="Forgot password",
+     *      description="Receive an email to change password",
+     *      @OA\Parameter(
+     *          name="email",
+     *          description="Email",
+     *          required=true,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="successful operation"
+     *       )
+     * )
+     */
 
     public function sendResetLinkEmail(Request $request)
     {

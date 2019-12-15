@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "API RESTFUL Laravel 5.8",
-        "description": "L5 Swagger OpenApi description",
+        "description": "API documentation project",
         "contact": {
             "email": "carlos.clayton@gmail.com"
         },
@@ -13,6 +13,32 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/forgot": {
+            "post": {
+                "tags": [
+                    "Autentication"
+                ],
+                "summary": "Forgot password",
+                "description": "Receive an email to change password",
+                "operationId": "ApiVue\\Http\\Controllers\\Auth\\ForgotPasswordController::sendResetLinkEmail",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Email",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
         "/api/access_token": {
             "post": {
                 "tags": [
@@ -22,6 +48,81 @@
                 "description": "Return token",
                 "operationId": "ApiVue\\Http\\Controllers\\Auth\\LoginController::accessToken",
                 "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Email",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "Password",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "password"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/api/logout": {
+            "post": {
+                "tags": [
+                    "Autentication"
+                ],
+                "summary": "Logout ",
+                "description": "Logout",
+                "operationId": "ApiVue\\Http\\Controllers\\Auth\\LoginController::logout",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/api/refresh_token": {
+            "post": {
+                "tags": [
+                    "Autentication"
+                ],
+                "summary": "Refresh token",
+                "description": "Refresh token",
+                "operationId": "ApiVue\\Http\\Controllers\\Auth\\LoginController::refreshToken",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Autentication"
+                ],
+                "summary": "Register new user",
+                "description": "Register new user",
+                "operationId": "ApiVue\\Http\\Controllers\\Auth\\RegisterController::store",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
                     {
                         "name": "email",
                         "in": "query",
