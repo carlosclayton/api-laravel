@@ -44,9 +44,16 @@ class ProductsController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *     tags={"Products"},
+     *     path="/api/products",
+     *     summary="List of products",
+     *     description="Return a list of products",
+     *     @OA\Response(response="200", description="An json"),
+     *      security={
+     *           {"apiKey": {}}
+     *       }
+     * )
      */
     public function index()
     {
@@ -58,6 +65,55 @@ class ProductsController extends Controller
         ]);
     }
 
+    /**
+     * @OA\Post(
+     *      tags={"Products"},
+     *      path="/api/products",
+     *      summary="Store a product",
+     *      description="Return message",
+     *      @OA\Parameter(
+     *          name="name",
+     *          description="Name field",
+     *          required=true,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="price",
+     *          description="Price field",
+     *          required=true,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="number",
+     *              format="float"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="category_id",
+     *          description="Category ID field",
+     *          required=true,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="description",
+     *          description="Description",
+     *          required=true,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *     @OA\Response(response="200", description="Store products"),
+     *      security={
+     *           {"apiKey": {}}
+     *      }
+     * )
+     */
     public function store(ProductCreateRequest $request)
     {
         try {
@@ -76,11 +132,26 @@ class ProductsController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *     tags={"Products"},
+     *     path="/api/products/{id}",
+     *     operationId="getProductById",
+     *     @OA\Parameter(
+     *          name ="id",
+     *          in = "path",
+     *          description = "ID of product to return",
+     *          required = true,
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *     ),
+     *     summary="Show a product",
+     *     description="Return a product",
+     *     @OA\Response(response="200", description="An json"),
+     *     security={
+     *           {"apiKey": {}}
+     *     }
+     * )
      */
     public function show($id)
     {
@@ -106,15 +177,65 @@ class ProductsController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  ProductUpdateRequest $request
-     * @param  string $id
-     *
-     * @return Response
-     *
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     * @OA\Put(
+     *      tags={"Products"},
+     *      path="/api/products/{id}",
+     *      summary="Update a product",
+     *      description="Return message",
+     *     operationId="getProductById",
+     *     @OA\Parameter(
+     *          name ="id",
+     *          in = "path",
+     *          description = "ID of product to return",
+     *          required = true,
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *     ),
+     *     @OA\Parameter(
+     *          name="name",
+     *          description="Name field",
+     *          required=true,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="price",
+     *          description="Price field",
+     *          required=true,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="number",
+     *              format="float"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="category_id",
+     *          description="Category ID field",
+     *          required=true,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="description",
+     *          description="Description",
+     *          required=true,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *     @OA\Response(response="200", description="Store products"),
+     *      security={
+     *           {"apiKey": {}}
+     *      }
+     * )
      */
+
     public function update(ProductUpdateRequest $request, $id)
     {
         try {
@@ -133,11 +254,26 @@ class ProductsController extends Controller
 
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
+     * @OA\Delete(
+     *     tags={"Products"},
+     *     path="/api/products/{id}",
+     *     operationId="getProductsById",
+     *     @OA\Parameter(
+     *          name ="id",
+     *          in = "path",
+     *          description = "ID of products to return",
+     *          required = true,
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *     ),
+     *     summary="Delete a product",
+     *     description="Delete a product",
+     *     @OA\Response(response="200", description="An json"),
+     *     security={
+     *           {"apiKey": {}}
+     *     }
+     * )
      */
     public function destroy($id)
     {
@@ -148,6 +284,18 @@ class ProductsController extends Controller
 
     }
 
+    /**
+     * @OA\Get(
+     *     tags={"Products"},
+     *     path="/api/products/trashed",
+     *     summary="List of trashed products",
+     *     description="Return a list of trashed products",
+     *     @OA\Response(response="200", description="An json"),
+     *      security={
+     *           {"apiKey": {}}
+     *       }
+     * )
+     */
     public function trashed()
     {
         $this->repository->pushCriteria(new OnlyTrashedCriteria());
@@ -158,6 +306,19 @@ class ProductsController extends Controller
         ]);
     }
 
+    /**
+     * @OA\Put(
+     *      tags={"Products"},
+     *      path="/api/products/restore/{id}",
+     *      summary="Restore a product",
+     *      description="Restore a product",
+     *      operationId="getProductById",
+     *     @OA\Response(response="200", description="Store categories"),
+     *      security={
+     *           {"apiKey": {}}
+     *      }
+     * )
+     */
     public function restore($id)
     {
         try {
