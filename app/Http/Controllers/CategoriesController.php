@@ -56,14 +56,14 @@ class CategoriesController extends Controller
      *       }
      * )
      */
-    public function index()
+    public function index(Request $request)
     {
-        $this->repository->pushCriteria(new OrderByCriteria('ID', 'DESC'));
-        $categories = $this->repository->paginate(10);
+        $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
+        $categories = $this->repository->paginate($request->get('limit', 10), $request->get('page', 1));
+
         return response()->json([
             'data' => $categories,
         ]);
-
     }
 
 
